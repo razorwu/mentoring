@@ -1,0 +1,19 @@
+:host {
+  padding: 32px;
+  display: inline-block;
+
+  .grid {
+    width: 400px;
+    height: 400px;
+    background-color: #fff;
+
+    display: grid;
+    place-items: center;
+
+    .block {
+      background-color: orange;
+    }
+  }
+}
+
+
