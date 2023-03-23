@@ -1,42 +1,37 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {ChildComponent} from "../child/child.component";
-import {MyServiceService} from "../my-service.service";
+import {AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ViewChild} from '@angular/core';
+import {ChangeDetectionOnPushComponent} from "../change-detection-on-push/change-detection-on-push.component";
 
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
-  styleUrls: ['./demo.component.scss']
+  styleUrls: ['./demo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DemoComponent implements OnInit, AfterViewInit {
+export class DemoComponent implements AfterViewChecked, AfterViewInit {
   title = 'Demo component';
 
-  @Input() template: TemplateRef<any>|undefined;
+  user = {
+    name: 'Bill',
+    surname: 'Armstrong'
+  }
 
-  @ViewChild('inputElement') inputEl!: ElementRef;
-  @ViewChild(ChildComponent) childComponent!: ChildComponent;
-  @ViewChild(MyServiceService) myService!: MyServiceService;
-  @ViewChild('defaultTmpl') defaultTmpl!: TemplateRef<any>
+  @ViewChild(ChangeDetectionOnPushComponent) cd!: ChangeDetectionOnPushComponent;
+
+  ngAfterViewChecks = 0;
+  ngAfterViewChecked(): void {
+
+    //this.cd.user.name = 'Homer';
+    this.ngAfterViewChecks++;
+    console.log('app-demo -> AfterViewChecked', this.ngAfterViewChecks);
+  }
 
   ngAfterViewInit(): void {
-    console.log('ngAfterViewInit', this.inputEl);
-
-    const input: HTMLInputElement = this.inputEl.nativeElement;
-    input.value = 'John';
-
-    console.log('ngAfterViewInit', this.childComponent);
-
-    this.myService.data$.subscribe(value => {
-      console.log(value);
-    });
-
-
-    this.template = this.template || this.defaultTmpl;
+    this.cd.user = this.user;
   }
 
-  ngOnInit(): void {
-    console.log('ngOnInit', this.inputEl);
+  click() {
+    console.log('click')
   }
-
 }
 
 

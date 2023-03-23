@@ -8,13 +8,19 @@ import {DemoComponent} from './demo/demo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChildComponent } from './child/child.component';
 import { ContentItemDirective } from './content-item.directive';
+import { ChangeDetectionComponent } from './change-detection/change-detection.component';
+import { ChangeDetectionOnPushComponent } from './change-detection-on-push/change-detection-on-push.component';
+import {myPipe} from "./change-detection/change-detection.component.spec";
 
 @NgModule({
   declarations: [
     AppComponent,
     DemoComponent,
     ChildComponent,
-    ContentItemDirective
+    ContentItemDirective,
+    ChangeDetectionComponent,
+    ChangeDetectionOnPushComponent,
+    myPipe
   ],
   imports: [
     BrowserModule,

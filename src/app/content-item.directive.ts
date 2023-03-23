@@ -8,3 +8,4 @@ export class ContentItemDirective {
   constructor(public template: TemplateRef<any>) { }
 
 }
+

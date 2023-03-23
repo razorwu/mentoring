@@ -1,27 +1,7 @@
 <h3>{{ title }}</h3>
 <div class="grid">
-  <div class="block">
-    <input #inputElement>
-  </div>
-
-  <app-child>
-
-    <ng-template appContentItem>
-      I'm template
-    </ng-template>
-
-    <ng-template appContentItem>
-      I'm template 2
-    </ng-template>
-
-    <ng-template appContentItem>
-      I'm template 3
-    </ng-template>
-
-  </app-child>
+  <app-change-detection></app-change-detection>
+  <app-change-detection-on-push></app-change-detection-on-push>
 </div>
 
-<ng-template #defaultTmpl>
-  <div class="block">My default template</div>
-</ng-template>
-
+<button (click)="click()">Click</button>
