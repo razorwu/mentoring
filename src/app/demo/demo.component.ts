@@ -1,43 +1,48 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {ChildComponent} from "../child/child.component";
-import {MyServiceService} from "../my-service.service";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
+import {of} from "rxjs";
+
+export function createValidator(): ValidatorFn {
+  return (control): ValidationErrors | null => {
+    return null;
+  }
+}
+
+export function createAsyncValidator(): AsyncValidatorFn {
+  return (control) => {
+    return of(null);
+  }
+}
+
 
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.scss']
 })
-export class DemoComponent implements OnInit, AfterViewInit {
-  title = 'Demo component';
+export class DemoComponent implements OnDestroy, OnInit {
+  title = 'Demo form';
 
-  @Input() template: TemplateRef<any>|undefined;
+  clicker: FormControl = new FormControl(2, {
+    validators: [createValidator()],
+    asyncValidators: [createAsyncValidator()]
+  });
 
-  @ViewChild('inputElement') inputEl!: ElementRef;
-  @ViewChild(ChildComponent) childComponent!: ChildComponent;
-  @ViewChild(MyServiceService) myService!: MyServiceService;
-  @ViewChild('defaultTmpl') defaultTmpl!: TemplateRef<any>
+  form: FormGroup = new FormGroup( {
+    clicksCount: this.clicker
+  });
 
-  ngAfterViewInit(): void {
-    console.log('ngAfterViewInit', this.inputEl);
-
-    const input: HTMLInputElement = this.inputEl.nativeElement;
-    input.value = 'John';
-
-    console.log('ngAfterViewInit', this.childComponent);
-
-    this.myService.data$.subscribe(value => {
-      console.log(value);
-    });
-
-
-    this.template = this.template || this.defaultTmpl;
+  ngOnDestroy(): void {
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit', this.inputEl);
+    //this.clicker.disable();
+    this.form.valueChanges.subscribe(value => {
+      console.log(value, this.form.valid, this.clicker.errors);
+    })
   }
-
 }
 
+// Nested forms
 
-
+// https://blog.angular-university.io/angular-custom-form-controls/
