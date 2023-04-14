@@ -17,14 +17,11 @@ export class ChildComponent implements OnInit, AfterContentInit {
   constructor(private myService: MyServiceService) { }
 
   ngOnInit(): void {
-    console.log('ngOnInit - child', this.content);
+
   }
 
   ngAfterContentInit(): void {
-    console.log('ngAfterContentInit  - child', this.content);
+
   }
 
-  post() {
-    this.myService.post('Child component click');
-  }
 }

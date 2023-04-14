@@ -1,1 +1,18 @@
-<app-demo></app-demo>
+<nav>
+  <ul>
+    <li>
+      <a [routerLink]="['/routing-testing']" routerLinkActive="active">Routing</a>
+    </li>
+    <li>
+      <a [routerLink]="['']" routerLinkActive="active">Demo</a>
+    </li>
+    <li>
+      <a [routerLink]="['/child']" routerLinkActive="active">Child component</a>
+    </li>
+    <li>
+      <a [routerLink]="['/taxes-in-texas']" routerLinkActive="active">Taxes in Texas</a>
+    </li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>

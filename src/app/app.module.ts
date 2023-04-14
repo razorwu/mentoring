@@ -9,12 +9,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChildComponent } from './child/child.component';
 import { ContentItemDirective } from './content-item.directive';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     DemoComponent,
     ChildComponent,
-    ContentItemDirective
+    ContentItemDirective,
   ],
   imports: [
     BrowserModule,
